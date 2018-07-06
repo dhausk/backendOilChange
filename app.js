@@ -1,38 +1,44 @@
 
-var express = require('express');
-var cors = require('cors');
-var App = express();
-// const dataBaseData = require('./dataBase/entry1.json');
-var port = process.env.PORT || 3000;
+//  npm install express cors body-parser morgan nodemon
+const express = require('express')
+const bodyParser = require('body-parser')
+const morgan = require('morgan')
+const cors = require('cors')
+const app = module.exports = express()
+const port = parseInt(process.env.PORT || 3000)
 
-// function idFinder(dataBaseData, id) {
-//   for (let i = 0; i < dataBaseData.length; i++) {
-//     if (dataBaseData[i].id == id) {
-//       return dataBaseData[i];
-//     }
-//   };
-//   return false;
-// }
-App.use(cors());
-App.get('/', (req, res) => {
-  res.status(200).json({
-    // data: dataBaseData
-    data: "yeah buddy"
-  });
-});
-// App.get('/:id', (req, res) => {
-//   var entry = idFinder(dataBaseData, req.params.id);
-//   if (entry === false) {
-//     res.status(404).json({
-//       error: {
-//         "message": "No record found!"
-//       }
-//     });
-//   }
-//   else {
-//     res.status(200).json({
-//       data: entry
-//     });
-//   };
-// });
-App.listen(port)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(morgan(process.env.NODE_ENV !== 'production' ? 'dev' : 'combined'))
+app.use(cors({ origin: true, credentials: true }))
+// Optional Static file handler:
+// app.use('/', express.static('./build'))
+
+// TODO: ADD (MOUNT) YOUR MIDDLEWARE (ROUTES) HERE:
+// Example: app.use('/api/cat', require('./routes/cat'))
+
+app.use('/maintenance', require('./routes/maintenance'))
+app.use('/vehicles', require('./routes/vehicles'))
+app.use(notFound)
+app.use(errorHandler)
+
+// eslint-disable-next-line
+function notFound(req, res, next) {
+  const url = req.originalUrl
+  if (!/favicon\.ico$/.test(url) && !/robots\.txt$/.test(url)) {
+    // Don't log less important (automatic) browser requests
+    console.error('[404: Requested file not found] ', url)
+  }
+  res.status(404).send({ error: 'Url not found', status: 404, url })
+}
+
+// eslint-disable-next-line
+function errorHandler(err, req, res, next) {
+  console.error('ERROR', err)
+  const stack = process.env.NODE_ENV !== 'production' ? err.stack : undefined
+  res.status(500).send({ error: err.message, stack, url: req.originalUrl })
+}
+
+app.listen(port)
+  .on('error', console.error.bind(console))
+  .on('listening', console.log.bind(console, 'Listening on ' + port))
