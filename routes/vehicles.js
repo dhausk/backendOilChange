@@ -1,6 +1,4 @@
-
-// TODO: Import KNEX CONNECTION OBJECT
-const knex = require('../db/knex') // TODO: Adjust path as needed!
+const knex = require('../knex')
 const router = module.exports = require('express').Router();
 
 router.get('/', getAll)

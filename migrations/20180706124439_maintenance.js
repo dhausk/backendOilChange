@@ -5,6 +5,7 @@ exports.up = function (knex, Promise) {
     table.text('maintenance');
     table.date('date');
     table.text('notes');
+    table.float('cost');
   });
 };
 

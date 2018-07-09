@@ -1,7 +1,6 @@
 // TODO: Import KNEX CONNECTION OBJECT
-const knex = require('../db/knex') // TODO: Adjust path as needed!
+const knex = require('../knex')
 
-// RESTFUL Knex Router Template:
 const router = module.exports = require('express').Router();
 
 router.get('/', getAll)
@@ -9,7 +8,7 @@ router.get('/:id', getOne)
 router.post('/', create)
 router.put('/:id', update)
 router.delete('/:id', remove)
-
+router.error('/', error)
 // TODO: Don't forget data validation/restrictions:
 // - use regex, mongoose, Joi, bookshelf, *schema lib, etc. many options: choose one
 
@@ -56,5 +55,10 @@ function remove(req, res, next) {
     .then(count => count >= 1
       ? res.status(204).json({ message: "log deleted" })
       : res.status(404).json({ message: 'Nothing deleted!' }))
+    .catch(next)
+}
+function error(req, res, next) {
+  knex('maintenance')
+    .then(maintenance => res.status(404).send({ data: "bad request" }))
     .catch(next)
 }
