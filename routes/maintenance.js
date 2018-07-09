@@ -1,5 +1,4 @@
-// TODO: Import KNEX CONNECTION OBJECT
-const knex = require('../knex')
+const knex = require('../knexfile')
 
 const router = module.exports = require('express').Router();
 
@@ -15,7 +14,7 @@ router.error('/', error)
 function getAll(req, res, next) {
   knex('maintenance')
     .select('*')
-    .then(maintenance => res.status(200).send({ data: "maintenance" }))
+    .then(maintenance => res.status(200).send({ data: maintenance }))
     .catch(next)
 }
 

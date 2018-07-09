@@ -11,8 +11,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan(process.env.NODE_ENV !== 'production' ? 'dev' : 'combined'))
 app.use(cors({ origin: true, credentials: true }))
-// Optional Static file handler:
-// app.use('/', express.static('./build'))
 
 // TODO: ADD (MOUNT) YOUR MIDDLEWARE (ROUTES) HERE:
 // Example: app.use('/api/cat', require('./routes/cat'))
