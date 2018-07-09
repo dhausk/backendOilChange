@@ -3,13 +3,10 @@ const knex = require('../knexfile')
 const router = module.exports = require('express').Router();
 
 router.get('/', getAll)
-router.get('/:id', getOne)
 router.post('/', create)
 router.put('/:id', update)
 router.delete('/:id', remove)
 router.error('/', error)
-// TODO: Don't forget data validation/restrictions:
-// - use regex, mongoose, Joi, bookshelf, *schema lib, etc. many options: choose one
 
 function getAll(req, res, next) {
   knex('maintenance')
@@ -17,20 +14,20 @@ function getAll(req, res, next) {
     .then(maintenance => res.status(200).send({ data: maintenance }))
     .catch(next)
 }
+function validLog(maintenance) {
+  const hasVehicle = typeof maintenance.vehicle_id == 'number';
+  const hasMaintenance = typeof maintenance.maintenance == 'string' && maintenance.maintenance.trim() != "";
+  const hasDate = typeof maintenance.date == 'string' && maintenance.date.trim() != "";;
+  const hasNotes = typeof maintenance.notes == 'string' && maintenance.notes.trim() != "";
+  const hasCost = typeof maintenance.cost == 'number';
 
-function getOne(req, res, next) {
-  knex('maintenance')
-    .select('*')
-    .where({ id: req.params.id })
-    .then(([maintenance]) => {
-      if (!maintenance) return res.status(404).send({ message: 'maintenance log not found.' })
-      res.status(200).send({ data: maintenance })
-    })
-    .catch(next)
+  return hasVehicle && hasMaintenance && hasDate && hasNotes && hasCost
 }
 
 function create(req, res, next) {
-  // TODO: Validate input data
+  if (validLog(maintenance)) {
+
+  }
   knex('maintenance')
     .insert(req.body)
     .then(() => res.status(201).json({ data: req.body }))

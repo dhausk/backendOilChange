@@ -1,16 +1,11 @@
 const knex = require('../knexfile')
 const router = module.exports = require('express').Router();
 
-const corsOptions = {
-  origin: '',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
 router.get('/', getAll)
-router.get('/:id', getOne)
 router.post('/', create)
 router.put('/:id', update)
 router.delete('/:id', remove)
+router.error('/', error)
 
 function getAll(req, res, next) {
   knex('vehicles')
@@ -19,24 +14,13 @@ function getAll(req, res, next) {
     .catch(next)
 }
 
-// function getOne(req, res, next) {
-//   knex('vehicles')
-//     .select('*')
-//     .where({ id: req.params.id })
-//     .then(([item]) => {
-//       if (!item) return res.status(404).send({ message: 'Item not found.' })
-//       res.status(200).send({ data: item })
-//     })
-//     .catch(next)
-// }
-
 function validVehicle(vehicle) {
   const hasMake = typeof vehicle.make == 'string' && vehicle.make.trim() != ""
   const hasModel = typeof vehicle.model == 'string' && vehicle.model.trim() != ""
   const hasYr = typeof vehicle.yr == 'number'
   const hasName = typeof vehicle.name == 'string' && vehicle.name.trim() != ""
 
-  return hasMake && hasModel && hasYr && hasName && hasLng
+  return hasMake && hasModel && hasYr && hasName
 }
 
 function create(req, res, next) {
@@ -66,5 +50,11 @@ function remove(req, res, next) {
     .then(count => count >= 1
       ? res.status(204).json({ data: { message: 'vehicle deleted' } })
       : res.status(404).json({ data: { message: 'Nothing deleted!' } }))
+    .catch(next)
+}
+
+function error(req, res, next) {
+  knex('maintenance')
+    .then(maintenance => res.status(404).send({ data: "bad request" }))
     .catch(next)
 }

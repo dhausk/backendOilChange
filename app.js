@@ -12,8 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan(process.env.NODE_ENV !== 'production' ? 'dev' : 'combined'))
 app.use(cors({ origin: true, credentials: true }))
 
-// TODO: ADD (MOUNT) YOUR MIDDLEWARE (ROUTES) HERE:
-// Example: app.use('/api/cat', require('./routes/cat'))
 
 app.use('/maintenance', require('./routes/maintenance'))
 app.use('/vehicles', require('./routes/vehicles'))
