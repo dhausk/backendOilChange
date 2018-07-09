@@ -8,8 +8,8 @@ const cors = require('cors')
 
 const app = express();
 
-const art_card = require('./api/art_card');
-
+const vehicles = require('./api/vehicles');
+// const logs = require('./api/logs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -22,8 +22,8 @@ app.use(cors({
   optionsSuccessStatus: 200
 }))
 
-app.use('/api/v1/art-cards', art_card);
-
+app.use('/api/vehicles', vehicles);
+// app.use('/api/logs', logs);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
