@@ -1,30 +1,28 @@
 {
-  "name": "backend",
+  "name": "new-back-end",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dhausk/backendOilChange.git"
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dhausk/backendOilChange/issues"
-  },
-  "homepage": "https://github.com/dhausk/backendOilChange#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "debug": "^3.1.0",
     "express": "^4.16.3",
+    "http-errors": "^1.6.3",
     "knex": "^0.15.0",
     "morgan": "^1.9.0",
-    "nodemon": "^1.17.5",
     "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
   }
 }
