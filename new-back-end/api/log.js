@@ -23,8 +23,8 @@ function isValidId(req, res, next) {
 }
 
 router.get('/', (req, res) => {
-  queries.getAll().then(vehicles => {
-    res.json(vehicles);
+  queries.getAll().then(log => {
+    res.json(log);
   })
 })
 

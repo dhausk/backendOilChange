@@ -9,7 +9,7 @@ const cors = require('cors')
 const app = express();
 
 const vehicles = require('./api/vehicles');
-// const logs = require('./api/logs');
+const log = require('./api/log');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -23,7 +23,8 @@ app.use(cors({
 }))
 
 app.use('/api/vehicles', vehicles);
-// app.use('/api/logs', logs);
+app.use('/api/log', log);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
