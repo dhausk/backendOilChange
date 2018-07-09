@@ -23,33 +23,34 @@ function isValidId(req, res, next) {
 }
 
 router.get('/', (req, res) => {
-  queries.getAll().then(vehicles => {
-    res.json(vehicles);
-  })
+  res.json({ data: "it works" })
+  // queries.getAll().then(vehicles => {
+  //   res.json(vehicles);
+  // })
 })
 
-router.post('/', (req, res, next) => {
-  if (validArtCard(req.body)) {
-    queries.create(req.body).then(art_cards => {
-      res.json(art_cards[0])
-    })
-  } else {
-    next(new Error('invalid art card'))
-  }
-})
+// router.post('/', (req, res, next) => {
+//   if (validArtCard(req.body)) {
+//     queries.create(req.body).then(art_cards => {
+//       res.json(art_cards[0])
+//     })
+//   } else {
+//     next(new Error('invalid art card'))
+//   }
+// })
 
-router.put('/:id', isValidId, (req, res, next) => {
-  if (validArtCard(req.body)) {
-    queries.update(req.params.id, req.body).then(art_cards => {
-      res.json(art_cards[0])
-    })
-  } else {
-    next(new Error('invalid art card'))
-  }
-})
+// router.put('/:id', isValidId, (req, res, next) => {
+//   if (validArtCard(req.body)) {
+//     queries.update(req.params.id, req.body).then(art_cards => {
+//       res.json(art_cards[0])
+//     })
+//   } else {
+//     next(new Error('invalid art card'))
+//   }
+// })
 
-router.delete('/:id', isValidId, (req, res) => {
-  queries.delete(req.params.id).then(res.json({ message: "successfully deleted!" }))
-})
+// router.delete('/:id', isValidId, (req, res) => {
+//   queries.delete(req.params.id).then(res.json({ message: "successfully deleted!" }))
+// })
 
 module.exports = router;
