@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const queries = require('../db/vehicleQueries');
+const queries = require('../db/logQueries');
 
 function validArtCard(artCard) {
   const hasImgUrl = typeof artCard.imgUrl == 'string' && artCard.imgUrl.trim() != ""

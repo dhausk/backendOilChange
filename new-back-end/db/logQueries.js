@@ -2,15 +2,15 @@ const knex = require('./knex');
 
 module.exports = {
   getAll() {
-    return knex('logs');
+    return knex('log');
   },
-  create(logs) {
-    return knex('logs').insert(logs, '*');
+  create(log) {
+    return knex('log').insert(log, '*');
   },
-  update(id, logs) {
-    return knex('logs').where('id', id).update(logs, '*');
+  update(id, log) {
+    return knex('log').where('id', id).update(log, '*');
   },
   delete(id) {
-    return knex('logs').where('id', id).del()
+    return knex('log').where('id', id).del()
   }
 }
