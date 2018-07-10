@@ -4,14 +4,13 @@ const router = express.Router();
 
 const queries = require('../db/logQueries');
 
-function validArtCard(artCard) {
-  const hasImgUrl = typeof artCard.imgUrl == 'string' && artCard.imgUrl.trim() != ""
-  const hasDescription = typeof artCard.description == 'string' && artCard.description.trim() != ""
-  const hasLocation = typeof artCard.location == 'string' && artCard.location.trim() != ""
-  const hasLat = typeof artCard.lat == 'number' && artCard.lat >= -180 && artCard.lat <= 180
-  const hasLng = typeof artCard.lng == 'number' && artCard.lng >= -180 && artCard.lng <= 180
+function validLog(log) {
+  const hasVehId = typeof log.veh_id == 'number';
+  const hasMaintenance = typeof log.maintenance == 'string' && log.maintenance.trim() != ""
+  const hasCost = typeof log.cost == 'number' && log.cost.trim() != ""
+  const hasNote = typeof log.note == 'string' && log.note.trim() != ""
 
-  return hasImgUrl && hasDescription && hasLocation && hasLat && hasLng
+  return hasVehId && hasMaintenance && hasCost && hasNote;
 }
 
 function isValidId(req, res, next) {
@@ -28,28 +27,28 @@ router.get('/', (req, res) => {
   })
 })
 
-// router.post('/', (req, res, next) => {
-//   if (validArtCard(req.body)) {
-//     queries.create(req.body).then(art_cards => {
-//       res.json(art_cards[0])
-//     })
-//   } else {
-//     next(new Error('invalid art card'))
-//   }
-// })
+router.post('/', (req, res, next) => {
+  if (validLog(req.body)) {
+    queries.create(req.body).then(log => {
+      res.json(log[0])
+    })
+  } else {
+    next(new Error('invalid log'))
+  }
+})
 
-// router.put('/:id', isValidId, (req, res, next) => {
-//   if (validArtCard(req.body)) {
-//     queries.update(req.params.id, req.body).then(art_cards => {
-//       res.json(art_cards[0])
-//     })
-//   } else {
-//     next(new Error('invalid art card'))
-//   }
-// })
+router.put('/:id', isValidId, (req, res, next) => {
+  if (validLog(req.body)) {
+    queries.update(req.params.id, req.body).then(log => {
+      res.json(log[0])
+    })
+  } else {
+    next(new Error('invalid log'))
+  }
+})
 
-// router.delete('/:id', isValidId, (req, res) => {
-//   queries.delete(req.params.id).then(res.json({ message: "successfully deleted!" }))
-// })
+router.delete('/:id', isValidId, (req, res) => {
+  queries.delete(req.params.id).then(res.json({ message: "successfully deleted!" }))
+})
 
 module.exports = router;
