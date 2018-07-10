@@ -14,13 +14,13 @@ function validArtCard(artCard) {
   return hasImgUrl && hasDescription && hasLocation && hasLat && hasLng
 }
 
-function isValidId(req, res, next) {
-  if (!isNaN(req.params.id)) {
-    return next()
-  } else {
-    next(new Error('invalid id'))
-  }
-}
+// function isValidId(req, res, next) {
+//   if (!isNaN(req.params.id)) {
+//     return next()
+//   } else {
+//     next(new Error('invalid id'))
+//   }
+// }
 
 router.get('/', (req, res) => {
   queries.getAll().then(vehicles => {
