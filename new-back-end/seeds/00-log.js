@@ -11,6 +11,7 @@ const data = [
     "veh_id": 1,
     "maintenance": "Oil Change",
     "cost": 20.00,
+    "date": '2018-02-12',
     "note": " all good "
   },
   {
@@ -18,6 +19,7 @@ const data = [
     "veh_id": 1,
     "maintenance": "Oil Change",
     "cost": 20.30,
+    "date": '2018-02-12',
     "note": "change trans fluid "
   },
   {
@@ -25,6 +27,7 @@ const data = [
     "veh_id": 3,
     "maintenance": "Oil Change",
     "cost": 20.40,
+    "date": '2018-03-12',
     "note": "all good"
   },
   {
@@ -32,6 +35,7 @@ const data = [
     "veh_id": 3,
     "maintenance": "Oil Change and filter change",
     "cost": 25.40,
+    "date": '2018-03-17',
     "note": "all good"
   },
   {
@@ -39,6 +43,7 @@ const data = [
     "veh_id": 3,
     "maintenance": "Oil Change and filter change",
     "cost": 25.40,
+    "date": '2017-10-25',
     "note": "all good"
   },
   {
@@ -46,6 +51,7 @@ const data = [
     "veh_id": 2,
     "maintenance": "Oil Change and filter change",
     "cost": 15.40,
+    "date": '2017-10-02',
     "note": "all good"
   },
   {
@@ -53,6 +59,7 @@ const data = [
     "veh_id": 2,
     "maintenance": "Oil Change and filter change",
     "cost": 26.40,
+    "date": '2017-11-11',
     "note": "all good"
   }
 ]

@@ -4,7 +4,7 @@ exports.up = function (knex, Promise) {
     table.integer('veh_id');
     table.string('maintenance');
     table.float('cost');
-    table.timestamp('date').notNullable().defaultTo(knex.raw('now()'));
+    table.date('date');
     table.string('note');
   });
 };

@@ -8,9 +8,10 @@ function validLog(log) {
   const hasVehId = typeof log.veh_id == 'number';
   const hasMaintenance = typeof log.maintenance == 'string' && log.maintenance.trim() != ""
   const hasCost = typeof log.cost == 'number' && log.cost.trim() != ""
+  const hasDate = typeof log.date == 'string' && log.date.trim() != ""
   const hasNote = typeof log.note == 'string' && log.note.trim() != ""
 
-  return hasVehId && hasMaintenance && hasCost && hasNote;
+  return hasVehId && hasMaintenance && hasDate && hasCost && hasNote;
 }
 
 function isValidId(req, res, next) {
