@@ -4,23 +4,22 @@ const router = express.Router();
 
 const queries = require('../db/vehicleQueries');
 
-function validArtCard(artCard) {
-  const hasImgUrl = typeof artCard.imgUrl == 'string' && artCard.imgUrl.trim() != ""
-  const hasDescription = typeof artCard.description == 'string' && artCard.description.trim() != ""
-  const hasLocation = typeof artCard.location == 'string' && artCard.location.trim() != ""
-  const hasLat = typeof artCard.lat == 'number' && artCard.lat >= -180 && artCard.lat <= 180
-  const hasLng = typeof artCard.lng == 'number' && artCard.lng >= -180 && artCard.lng <= 180
+function validVehCard(vehCard) {
+  const hasMake = typeof vehCard.make == 'string' && vehCard.make.trim() != "";
+  const hasModel = typeof vehCard.model == 'string' && vehCard.model.trim() != "";
+  const hasNote = typeof vehCard.note == 'string' && vehCard.note.trim() != "";
+  const hasYear = typeof vehCard.year == 'number';
 
-  return hasImgUrl && hasDescription && hasLocation && hasLat && hasLng
+  return hasMake && hasModel && hasNote && hasYear;
 }
 
-// function isValidId(req, res, next) {
-//   if (!isNaN(req.params.id)) {
-//     return next()
-//   } else {
-//     next(new Error('invalid id'))
-//   }
-// }
+function isValidId(req, res, next) {
+  if (!isNaN(req.params.id)) {
+    return next()
+  } else {
+    next(new Error('invalid id'))
+  }
+}
 
 router.get('/', (req, res) => {
   queries.getAll().then(vehicles => {
@@ -28,28 +27,28 @@ router.get('/', (req, res) => {
   })
 })
 
-// router.post('/', (req, res, next) => {
-//   if (validArtCard(req.body)) {
-//     queries.create(req.body).then(art_cards => {
-//       res.json(art_cards[0])
-//     })
-//   } else {
-//     next(new Error('invalid art card'))
-//   }
-// })
+router.post('/', (req, res, next) => {
+  if (validVehCard(req.body)) {
+    queries.create(req.body).then(veh_card => {
+      res.json(veh_card[0])
+    })
+  } else {
+    next(new Error('invalid art card'))
+  }
+})
 
-// router.put('/:id', isValidId, (req, res, next) => {
-//   if (validArtCard(req.body)) {
-//     queries.update(req.params.id, req.body).then(art_cards => {
-//       res.json(art_cards[0])
-//     })
-//   } else {
-//     next(new Error('invalid art card'))
-//   }
-// })
+router.put('/:id', isValidId, (req, res, next) => {
+  if (validVehCard(req.body)) {
+    queries.update(req.params.id, req.body).then(veh_card => {
+      res.json(veh_card[0])
+    })
+  } else {
+    next(new Error('invalid art card'))
+  }
+})
 
-// router.delete('/:id', isValidId, (req, res) => {
-//   queries.delete(req.params.id).then(res.json({ message: "successfully deleted!" }))
-// })
+router.delete('/:id', isValidId, (req, res) => {
+  queries.delete(req.params.id).then(res.json({ message: "successfully deleted!" }))
+})
 
 module.exports = router;
