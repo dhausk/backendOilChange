@@ -1,7 +1,5 @@
 const express = require('express');
-
 const router = express.Router();
-
 const queries = require('../db/logQueries');
 
 function validLog(log) {
@@ -10,6 +8,7 @@ function validLog(log) {
   const hasCost = typeof log.cost == 'number';
   const hasDate = typeof log.date == 'string' && log.date.trim() != "";
   const hasNote = typeof log.note == 'string' && log.note.trim() != "";
+
   return hasVehId && hasMaintenance && hasDate && hasCost && hasNote;
 }
 
