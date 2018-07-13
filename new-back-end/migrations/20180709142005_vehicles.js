@@ -3,7 +3,7 @@ exports.up = function (knex, Promise) {
     table.increments('id');
     table.string('make');
     table.string('model');
-    table.integer('year');
+    table.string('year');
     table.string('note');
   });
 };

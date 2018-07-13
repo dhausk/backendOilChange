@@ -8,8 +8,7 @@ function validVehCard(vehCard) {
   const hasMake = typeof vehCard.make == 'string' && vehCard.make.trim() != "";
   const hasModel = typeof vehCard.model == 'string' && vehCard.model.trim() != "";
   const hasNote = typeof vehCard.note == 'string' && vehCard.note.trim() != "";
-  const hasYear = typeof vehCard.year == 'number';
-
+  const hasYear = typeof vehCard.year == 'string' && vehCard.year.trim() != "";
   return hasMake && hasModel && hasNote && hasYear;
 }
 
@@ -33,7 +32,7 @@ router.post('/', (req, res, next) => {
       res.json(veh_card[0])
     })
   } else {
-    next(new Error('invalid art card'))
+    next(new Error('invalid vehicle'))
   }
 })
 
@@ -43,7 +42,7 @@ router.put('/:id', isValidId, (req, res, next) => {
       res.json(veh_card[0])
     })
   } else {
-    next(new Error('invalid art card'))
+    next(new Error('invalid update'))
   }
 })
 
